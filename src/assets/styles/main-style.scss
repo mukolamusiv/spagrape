@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+@font-face {
+  font-family: e-Ukraine; /* Имя шрифта */
+  src: url('@/assets/fonts/e-Ukraine-Regular.otf'); /* Путь к файлу со шрифтом */
+}
+body{
+  font-family: e-Ukraine!important;
+  height: 100vh;
+  background: #eef1fa;
+  /* background: linear-gradient(45deg, #e3e554 0.66%, #99EECC 57.2%, #80C0C8 75.87%, #4B8BFA 98.72%); */
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+div{
+  text-align: left;
+}
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+a{
+    text-decoration: none;
+}
+.c-pointer{
+  cursor: pointer;
+}
