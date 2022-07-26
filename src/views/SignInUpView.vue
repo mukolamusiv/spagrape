@@ -132,7 +132,7 @@ const changeInputType = function(){
         width: 100px;
       }
       h3{
-        margin: 32px 0;
+        margin: 32px 0 16px 0;
       }
     }
     .form-sign{
