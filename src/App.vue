@@ -1,9 +1,7 @@
 <template>
   <div v-if="store.ui.loding" class="loding-progress"></div>
-  <div class="page-wrap">
-    <header-bar v-if="router.currentRoute.value.name!=='Login'"/>
-    <router-view/>
-  </div>
+  <header-bar v-if="router.currentRoute.value.name!=='Login'"/>
+  <router-view/>
 </template>
 
 <style lang="scss">

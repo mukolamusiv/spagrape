@@ -11,20 +11,20 @@
           <div class="form-item">
             <label>
               <span class="material-icons">person</span>
-              <input type="email" placeholder="email">
+              <input type="email" placeholder="email" v-model="data.email">
             </label>
           </div>
           <div class="form-item">
             <label>
               <span class="material-icons">lock</span>
-              <input placeholder="password" :type="data.inputType">
+              <input placeholder="password" :type="data.inputType" v-model="data.password">
               <span class="material-icons show" @click="changeInputType">{{data.inputIcon}}</span>
             </label>
           </div>
           <div class="login-error" v-if="data.error">
             Невірний логін, або пароль!
           </div>
-          <div class="form-item login-btn c-pointer" @click="data.error = !data.error">
+          <div class="form-item login-btn c-pointer" @click="login()">
             Увійти
           </div>
         </div>
@@ -75,13 +75,18 @@
 <script setup>
 import { reactive } from 'vue'
 import { useRouter} from 'vue-router'
+import axios from 'axios'
+// import { useStore } from '@/store'
 
 const router = useRouter()
+// const { store } = useStore()
 
 const data = reactive({
   error: false,
   inputType: 'password',
-  inputIcon: 'visibility'
+  inputIcon: 'visibility',
+  email: null,
+  password: null
 })
 const changeInputType = function(){
   if(data.inputType == 'password') {
@@ -93,6 +98,83 @@ const changeInputType = function(){
     data.inputIcon = 'visibility'
   }
 }
+const login = function (){
+   axios({
+    method: 'GET',
+    url: '/sanctum/csrf-cookie',
+    data: {
+      email: data.email,
+      password: data.password,
+   }
+  }).then(function (response) {
+    console.log(response.data)
+     axios({
+      method: 'POST',
+      url: '/login',
+      data: {
+        email: data.email,
+        password: data.password,
+     }
+    }).then(function (response) {
+      console.log(response.data)
+    })
+  })
+ // //  axios({
+ // //   method: 'POST',
+ // //   url: '/login',
+ // //   data: {
+ // //     email: data.email,
+ // //     password: data.password,
+ // //  }
+ // // }).then(function (response) {
+ // //   console.log(response.data)
+ // // })
+ // axios.get('/sanctum/csrf-cookie').then(function (response) {
+ //   console.log(response.data)
+ // })
+
+ //  axios({
+ //   method: 'GET',
+ //   url: '/sanctum/csrf-cookie',
+ //   data: {
+ //     email: data.email,
+ //     password: data.password,
+ //  }
+ // }).then(function (response) {
+ //   console.log(response.data)
+ // })
+}
+
+
+// const login2 = function () {
+//   axios.get('/sanctum/csrf-cookie').then(response => {
+//                 //console.log(response);
+//                 axios.post('/login', {email: data.emain ,password: data.password})
+//                     .then( response => {
+//                         //auth.login(response.config.headers['X-XSRF-TOKEN'], response.user);
+//                         localStorage.setItem('x-xsrf-token',response.config.headers['X-XSRF-TOKEN'])
+//                         axios.get('/api/get-user')
+//                             .then(({data}) => {
+//                                 //this.user = data;
+//                                 Auth.login(response.config.headers['X-XSRF-TOKEN'], data)
+//                                 window.localStorage.setItem('user', JSON.stringify(data))
+//                                 //localStorage.setItem('user',data)
+//
+//                             })
+//                         //console.log(response);
+//                         //localStorage.setItem('user',response)
+//                         //Auth.login(response.config.headers['X-XSRF-TOKEN']), response.data)
+//                         location.reload('/')
+//                     })
+//                     .catch(res => {
+//                         // console.log('asdasdasdasdasd');
+//                          console.log(res);
+//                         this.$toast.error('Авторизація не відбулась, перевірте логін та пароль');
+//                         //alert(response.data.message);
+//                         //this.$toastr.e(response.data.message, "Помилка")
+//                     });
+//             });
+// }
 </script>
 
 <style lang="scss" scoped>

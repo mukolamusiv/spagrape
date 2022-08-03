@@ -2,11 +2,11 @@ import { reactive } from 'vue'
 import axios from 'axios'
 
 const store = reactive({
-  homeUrl: 'http://localhost/api-eppo/api',
+  homeUrl: 'https://grape.chasoslov.info',
   token: null,
   router: null,
   ui: {
-    collapseSidebar: true,
+    navOpen: false,
     primeTitle: null,
     secondTitle: null,
     loding: false
